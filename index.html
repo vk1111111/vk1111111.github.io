@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>zen - portfolio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <main class="container">
+    
+    <section class="profile-section">
+      <div class="logo-name-group">
+        <img src="logo.png" alt="Logo" class="profile-logo">
+        <h1 class="pseudonym">zen <span class="real-name">benyamin borna</span></h1>
+      </div>
+      <p class="bio">
+        game developer/hobbyist.<br>
+        life revolves around<br>
+        technology
+      </p>
+    </section>
+
+    <section class="projects-section">
+      
+      <div class="project-card active">
+        <div class="card-header">
+          <h2 class="project-title">overdrive</h2>
+          <span class="expand-hint">click to expand</span>
+        </div>
+        <div class="card-content">
+          <div class="card-inner">
+            <div class="details">
+              <span class="desc-label">open-world multiplayer racing game</span>
+              <p class="desc-text">
+                a passion project i have been working on since the summer of 2023 in my free time. built on the roblox game engine. made a trailer for the game as a school project and earned a 100% grade on it.
+              </p>
+              <a href="https://www.youtube.com/watch?v=iJebIDnbM7w" class="project-link" target="_blank" rel="noopener">trailer link (outdated)</a>
+            </div>
+            <div class="media-container">
+              <img src="ovd1.png" alt="screenshot 1" class="media-large lightbox-trigger">
+              <img src="ovd2.png" alt="screenshot 2" class="media-small lightbox-trigger">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="card-header">
+          <h2 class="project-title">vklauncher</h2>
+          <span class="expand-hint">click to expand</span>
+        </div>
+        <div class="card-content">
+          <div class="card-inner">
+            <div class="details">
+              <span class="desc-label">custom terminal ui python minecraft launcher</span>
+              <p class="desc-text">
+                a simple minecraft launcher made for personal use. has third-party modpack support and microsoft account authentication. not planning to release to the public.
+              </p>
+            </div>
+            <div class="media-container">
+              <img src="mc1.png" alt="screenshot 1" class="media-large lightbox-trigger">
+              <img src="mc2.png" alt="screenshot 2" class="media-small lightbox-trigger">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <div id="lightbox" class="lightbox-modal">
+    <img id="lightbox-img" src="">
+  </div>
+
+  <script>
+    const cards = document.querySelectorAll('.project-card');
+
+    // Initialize open card height properly on page load
+    cards.forEach(card => {
+      const content = card.querySelector('.card-content');
+      if (card.classList.contains('active')) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+
+    // Accordion Logic
+    cards.forEach(card => {
+      const header = card.querySelector('.card-header');
+      const content = card.querySelector('.card-content');
+      
+      header.addEventListener('click', () => {
+        const isActive = card.classList.contains('active');
+
+        // Collapse all cards first
+        cards.forEach(c => {
+          c.classList.remove('active');
+          c.querySelector('.card-content').style.maxHeight = null;
+        });
+
+        // If it wasn't active, open it
+        if (!isActive) {
+          card.classList.add('active');
+          content.style.maxHeight = content.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // Lightbox Logic
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const triggers = document.querySelectorAll('.lightbox-trigger');
+
+    triggers.forEach(img => {
+      img.addEventListener('click', (e) => {
+        e.stopPropagation();
+        lightboxImg.src = img.src;
+        lightbox.classList.add('visible');
+      });
+    });
+
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('visible');
+    });
+  </script>
+
+</body>
+</html>
